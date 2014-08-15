@@ -74,8 +74,8 @@ class BuildoutManager(object):
 
         
         l = self._location
-        if path.isfile(path.join(l, "bin", "buildout")) and \
-                 path.isfile(path.join(l, ".installed.cfg")):
+        if not (path.isfile(path.join(l, "bin", "buildout"))) or \
+                 not(path.isfile(path.join(l, ".installed.cfg"))):
             self.bootstrap()
         
         # Not a feature yet
