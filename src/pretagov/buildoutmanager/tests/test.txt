@@ -3,7 +3,7 @@ Create a buildout "buildout_dir"
 
 >>> os.mkdir("buildout_dir")
 >>> f = open("buildout_dir/base.cfg", "w")
-... f.write("""
+>>> f.write("""
 ... [buidout]
 ... parts=cake
 ... versions=versions
@@ -29,13 +29,14 @@ Create a buildout "buildout_dir"
 Write a configuration to build it
 
 >>> f = open("managed_buildouts.cfg", "w")
+>>> import sys
 >>> f.write("""
 ... [testbuild]
-... location=%s
-... python=path/to/local/python
+... location=buildout_dir
+... python=%s
 ... buildout extends = =base.cfg
 ... buildout parts = +=pineapple
-... """ % "buildout_dir")
+... """ % sys.executable)
 >>> f.close()
 
 Buildout it
