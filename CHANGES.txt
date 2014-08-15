@@ -1,0 +1,12 @@
+Changelog
+=========
+
+1.0dev0-dev (unreleased)
+------------------------
+
+- Added initial concept code
+
+- Added in README.rst with concept documentation
+
+- Package created using templer
+  [Adam Terrey (PretaGov)]

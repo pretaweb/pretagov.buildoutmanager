@@ -1,0 +1,30 @@
+Metadata-Version: 1.1
+Name: pretaweb.buildoutmanager
+Version: 1.0dev0
+Summary: Buildout manager for buildout
+Home-page: http://www.pretagov.com.au
+Author: Adam Terrey (PretaGov)
+Author-email: adam@pretagov.com
+License: gpl
+Description: .. contents::
+        
+        Introduction
+        ============
+        
+        Tools and scripts which can be used to bootstrap and manage multiple buildouts.
+        Contributors
+        ============
+        
+        Adam Terrey (PretaGov), Author
+        
+        Changelog
+        =========
+        
+        1.0dev0-dev (unreleased)
+        ------------------------
+        
+        - Package created using templer
+          [Adam Terrey (PretaGov)]
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python

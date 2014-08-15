@@ -1,0 +1,12 @@
+README.txt
+setup.py
+src/pretaweb/__init__.py
+src/pretaweb.buildoutmanager.egg-info/PKG-INFO
+src/pretaweb.buildoutmanager.egg-info/SOURCES.txt
+src/pretaweb.buildoutmanager.egg-info/dependency_links.txt
+src/pretaweb.buildoutmanager.egg-info/entry_points.txt
+src/pretaweb.buildoutmanager.egg-info/namespace_packages.txt
+src/pretaweb.buildoutmanager.egg-info/not-zip-safe
+src/pretaweb.buildoutmanager.egg-info/requires.txt
+src/pretaweb.buildoutmanager.egg-info/top_level.txt
+src/pretaweb/buildoutmanager/__init__.py
