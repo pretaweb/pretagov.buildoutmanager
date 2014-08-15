@@ -18,6 +18,19 @@ class BuildoutManager(object):
                 buildout_cfg_sections[part] = section
         self._buildout_cfg_sections = buildout_cfg_sections
 
+
+
+    def write_buildout_cfg(self, sections):
+        fout = open(path.join(self._location, "buildout.cfg"), "w")
+        for section, options in self._buildout_cfg_sections.items():
+            fout.write("[%s]\n" % section)
+            for key, value in options.items():
+                fout.write(key)
+                for line in value.split("\n"):
+                    fout.write(line + "\n  ")
+                fout.write("\n")
+        fout.close()
+
     def run_python(self, *args):
         raise NotImplementedError()
 
@@ -27,8 +40,6 @@ class BuildoutManager(object):
     def get_version(self, version_name):
         raise NotImplementedError()
 
-    def write_buildout_cfg(self, sections):
-        raise NotImplementedError()
 
     def bootstrap(self):
 
