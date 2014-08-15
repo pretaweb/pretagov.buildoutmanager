@@ -33,6 +33,7 @@ Assumptions
 * the versions exist in on of the buildout:extends files
 * always using setup tools
 * all buildout in the configuration file are active
+* there is a correct version to run a buildout on
 
 Suggested Stories
 -----------------
