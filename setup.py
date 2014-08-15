@@ -13,7 +13,7 @@ long_description = (
     + '\n' +
     open('CHANGES.txt').read()
     + '\n')
-
+tests_require = []
 setup(name='pretagov.buildoutmanager',
       version=version,
       description="Buildout manager for buildout",
@@ -42,4 +42,8 @@ setup(name='pretagov.buildoutmanager',
       [console_scripts]
       build = pretagov.buildoutmanager.build [main]
       """,
+
+      tests_require=tests_require,
+      extras_require={'test': tests_require},
+
       )
