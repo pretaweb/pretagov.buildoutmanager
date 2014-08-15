@@ -39,5 +39,7 @@ setup(name='pretaweb.buildoutmanager',
       ],
       entry_points="""
       # -*- Entry points: -*-
+      [console_scripts]
+      build = pretagov.buildoutmanager.build [main]
       """,
       )

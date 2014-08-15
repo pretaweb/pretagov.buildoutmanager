@@ -74,7 +74,7 @@ class BuildoutManager(object):
 
         
 
-if __name__ == "__main__":
+def main():
 
     managed_buildouts_opts = readoptions(open("managed_buildouts.cfg"))
 
