@@ -1,3 +1,5 @@
+.. contents::
+
 pretaweb.buildoutmanager
 ========================
 
