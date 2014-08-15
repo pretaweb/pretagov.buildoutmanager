@@ -1,6 +1,6 @@
 .. contents::
 
-pretaweb.buildoutmanager
+pretagov.buildoutmanager
 ========================
 
 Buildout Manager for buildout
