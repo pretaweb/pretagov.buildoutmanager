@@ -31,11 +31,11 @@ Write a configuration to build it
 >>> f = open("managed_buildouts.cfg", "w")
 >>> f.write("""
 ... [testbuild]
-... location=path/to/tmp/dir
+... location=%s
 ... python=path/to/local/python
 ... buildout extends = =base.cfg
 ... buildout parts = +=pineapple
-... """)
+... """ % "buildout_dir")
 >>> f.close()
 
 Buildout it
