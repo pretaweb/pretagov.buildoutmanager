@@ -4,13 +4,13 @@ Create a buildout "buildout_dir"
 >>> os.mkdir("buildout_dir")
 >>> f = open("buildout_dir/base.cfg", "w")
 >>> f.write("""
-... [buidout]
+... [buildout]
 ... parts=cake
 ... versions=versions
 ... 
 ... [cake]
 ... recipe=collective.recipe.template
-... output=cake.cfg
+... output=cake.txt
 ... input=inline:
 ...   have your cake and eat it too :)
 ... 
@@ -25,6 +25,9 @@ Create a buildout "buildout_dir"
 ... setuptools=3.8
 ...  """)
 >>> f.close()
+
+>>> import urllib
+>>> bit_bucket = urllib.urlretrieve ("http://downloads.buildout.org/2/bootstrap.py", "buildout_dir/bootstrap.py")
 
 Write a configuration to build it
 
@@ -43,3 +46,7 @@ Buildout it
 
 >>> from pretagov.buildoutmanager.build import main
 >>> main()
+
+
+>>> assert 'cake' in open("buildout_dir/cake.txt", "r").read()
+>>> assert 'pineapple' in open("buildout_dir/pineapple.txt", "r").read()

@@ -1,6 +1,7 @@
 
 import sys
 import subprocess
+import os
 from os import path
 import re
 from ConfigParser import RawConfigParser
@@ -40,15 +41,29 @@ class BuildoutManager(object):
         fout.close()
 
     def run_python(self, *args):
+        cwd = os.getcwd()
         args = [self._python] + list(args)
+
         try:
+            os.chdir(self._location)
             subprocess.check_output(args, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError, e:
             logger.error("run_python fail:\n" + e.output)
             raise RuntimeError("Could not run_python: %s" % args)
+        finally:
+            os.chdir(cwd)
 
     def run_buildout(self):
-        raise NotImplementedError()
+        cwd = os.getcwd()
+
+        try:
+            os.chdir(self._location)
+            subprocess.check_output(['bin/buildout', '-N'], stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError, e:
+            logger.error("run_buildout fail:\n" + e.output)
+            raise RuntimeError("Could not run_buildout" % args)
+        finally:
+            os.chdir(cwd)
 
     def get_version(self, name):
 
