@@ -15,6 +15,7 @@ class BuildoutManager(object):
     def __init__ (self, options):
         self._options = options
         self._location = options["location"]
+        self._python = options.get("python", sys.executable)
 
         buildout_cfg_sections = {}
         for key, value in options.items():
@@ -39,21 +40,45 @@ class BuildoutManager(object):
         fout.close()
 
     def run_python(self, *args):
-        raise NotImplementedError()
+        args = [self._python] + list(args)
+        try:
+            subprocess.check_output(args, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError, e:
+            logger.error("run_python fail:\n" + e.output)
+            raise RuntimeError("Could not run_python: %s" % args)
 
     def run_buildout(self):
         raise NotImplementedError()
 
-    def get_version(self, version_name):
-        raise NotImplementedError()
+    def get_version(self, name):
+
+        # possibility - test to see if it is in self._buildout_cfg_sections ??
+
+
+        # this is quite rudementry probably needs more smarts #HACK
+        buildout_section = self._buildout_cfg_sections.get("buildout", {})
+
+        # strip off equals sign
+        extends = buildout_section.get("extends", "").strip("=")
+
+        # filter non files
+        search_files = [ f for f in extends.split() if len(f) > 0 ]
+
+
+        for f in search_files:
+            text = open(path.join(self._location, f), "r").read()
+            mo = re.search("^%s\s*=\s*(\S+)\s*$" % name, text, flags=re.MULTILINE)
+            if mo is not None:
+                return mo.groups()[0]
+
 
 
     def bootstrap(self):
 
-        version_zc_buildout = self.get_versions('zc.buildout')
-        version_setuptools = self.get_versions('setuptools')
+        version_zc_buildout = self.get_version('zc.buildout')
+        version_setuptools = self.get_version('setuptools')
 
-        write_buildout_cfg(self, {
+        self.write_buildout_cfg({
                 'buildout': {
                    'parts': '=',
                    'extensions': '=',
