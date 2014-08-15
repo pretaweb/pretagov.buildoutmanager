@@ -1,7 +1,7 @@
 
 
 from os import path
-
+from ConfigParser import RawConfigParser
 
 class BuildoutManager(object):
 
@@ -9,8 +9,8 @@ class BuildoutManager(object):
         self._options = options
         self._location = options["location"]
 
-        buildout_cfg_sections
-        for key, value in options:
+        buildout_cfg_sections = {}
+        for key, value in options.items():
             if ' ' in key:
                 part, varable = key.split(' ')
                 section = buildout_cfg_sections.get(part, {})
@@ -19,16 +19,16 @@ class BuildoutManager(object):
         self._buildout_cfg_sections = buildout_cfg_sections
 
     def run_python(self, *args):
-        raise ErrorNotImplemented()
+        raise NotImplementedError()
 
     def run_buildout(self):
-        raise ErrorNotImplemented()
+        raise NotImplementedError()
 
     def get_version(self, version_name):
-        raise ErrorNotImplemented()
+        raise NotImplementedError()
 
     def write_buildout_cfg(self, sections):
-        raise ErrorNotImplemented()
+        raise NotImplementedError()
 
     def bootstrap(self):
 
@@ -53,17 +53,18 @@ class BuildoutManager(object):
 
     # Not a feature yet
     #def bootstrap_mr_developer(self):
-    #    raise ErrorNotImplemented()
+    #    raise NotImplementedError()
 
     def buildout(self):
         self.write_buildout_cfg(self._buildout_cfg_sections)
         self.run_buildout()
 
     def build(self):
+
         
         l = self._location
-        if exists(path.join(l, "bin", "buildout")) and
-               exists(path.join(l, ".installed.cfg"):
+        if path.isfile(path.join(l, "bin", "buildout")) and \
+                 path.isfile(path.join(l, ".installed.cfg")):
             self.bootstrap()
         
         # Not a feature yet
@@ -75,12 +76,13 @@ class BuildoutManager(object):
         
 
 def main():
-
-    managed_buildouts_opts = readoptions(open("managed_buildouts.cfg"))
-
-    for buildout_opts in managed_buildouts_opts:
-        BuildoutManager(buildout_opts)
-        build(buildout_opts)
+    
+    cfg = RawConfigParser()
+    cfg.read("managed_buildouts.cfg")
+    for section in cfg.sections():
+        buildout_opts = dict(cfg.items(section))
+        bm = BuildoutManager(buildout_opts)
+        bm.build()
 
 
 
