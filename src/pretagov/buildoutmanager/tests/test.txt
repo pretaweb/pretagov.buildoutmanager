@@ -1,4 +1,44 @@
 
+Create a buildout "buildout_dir"
 
+>>> os.mkdir("buildout_dir")
+>>> f = open("buildout_dir/base.cfg", "w")
+... f.write("""
+... [buidout]
+... parts=cake
+... versions=versions
+... 
+... [cake]
+... recipe=collective.recipe.template
+... output=cake.cfg
+... input=inline:
+...   have your cake and eat it too :)
+... 
+... [pineapple]
+... recipe=collective.recipe.template
+... output=pineapple.txt
+... input=inline:
+...   have your pineapple and eat it too :) 
+... 
+... [versions]
+... zc.buildout=2.2.1
+... setuptools=3.8
+...  """)
+>>> f.close()
 
->>> asset True
+Write a configuration to build it
+
+>>> f = open("managed_buildouts.cfg", "w")
+>>> f.write("""
+... [testbuild]
+... location=path/to/tmp/dir
+... python=path/to/local/python
+... buildout extends = =base.cfg
+... buildout parts = +=pineapple
+... """)
+>>> f.close()
+
+Buildout it
+
+>>> from pretagov.buildoutmanager.build import main
+>>> main()
