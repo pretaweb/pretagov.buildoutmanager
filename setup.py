@@ -14,7 +14,7 @@ long_description = (
     open('CHANGES.txt').read()
     + '\n')
 
-setup(name='pretaweb.buildoutmanager',
+setup(name='pretagov.buildoutmanager',
       version=version,
       description="Buildout manager for buildout",
       long_description=long_description,
@@ -30,7 +30,7 @@ setup(name='pretaweb.buildoutmanager',
       license='gpl',
       packages=find_packages('src'),
       package_dir = {'': 'src'},
-      namespace_packages=['pretaweb'],
+      namespace_packages=['pretagov'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
